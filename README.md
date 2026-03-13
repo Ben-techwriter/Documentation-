@@ -4,7 +4,7 @@ Welcome to my portfolio! I'm a seasoned technical writer/educator with a multipl
 
 
 ## About me
-I have a strong background in the following domains have helped me to translate complex concepts into clear, structured, and user‑focused content.
+I have a strong background in the following domains which has helped me to translate complex concepts into clear, structured, and user‑focused content.
 
 * Academia
 * Technical Writing 
@@ -13,7 +13,8 @@ I have a strong background in the following domains have helped me to translate 
 
 
 ## Skills 
-My core skills are in the following ares
+My core skills are in the areas of 
+
 ITSM, ITAM, DDLC, SDLC, Agile, Confluence, Doc360, Jira, API Documentation, Markdown, DITA, Madcap Flare, 
 
 
