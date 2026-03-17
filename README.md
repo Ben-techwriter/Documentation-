@@ -1,26 +1,472 @@
-***Dr. Benila Susan Jacob**
+# 🚨 Incident Management API
 
-Welcome to my portfolio! I'm a seasoned technical writer/educator with a multiple years of professional experience. 
+> A RESTful API for creating, tracking, escalating, and resolving incidents across your infrastructure. Built for DevOps teams, SRE engineers, and platform integrations.
 
-
-## About me
-I have a strong background in the following domains which has helped me to translate complex concepts into clear, structured, and user‑focused content.
-
-* Academia
-* Technical Writing 
-* Instructional Design
-* Learning & Development
-
-
-## Skills 
-My core skills are in the areas of 
-
-ITSM, ITAM, DDLC, SDLC, Agile, Confluence, Doc360, Jira, API Documentation, Markdown, DITA, Madcap Flare, 
-
-
-## Contact
-I can be contacted on [Linkedin!](https://www.linkedin.com/in/benila-susan-jacob-phd-518960253/) and my portfolio is available for preview on [Github!](https://github.com/Ben-techwriter).  
-
+![Version](https://img.shields.io/badge/version-1.0.0-blue) ![License](https://img.shields.io/badge/license-Apache%202.0-green) ![Status](https://img.shields.io/badge/status-active-brightgreen)
 
 ---
->"genius is 99% perspiration and 1% inspiration"
+
+## Table of Contents
+
+- [Overview](#overview)
+- [Base URL](#base-url)
+- [Authentication](#authentication)
+- [Endpoints](#endpoints)
+- [Detailed Reference](#detailed-reference)
+  - [List Incidents](#get-incidents)
+  - [Create Incident](#post-incidents)
+  - [Get Incident](#get-incidentsid)
+  - [Update Incident](#patch-incidentsid)
+  - [Acknowledge](#post-incidentsidacknowledge)
+  - [Resolve](#post-incidentsidresolve)
+  - [Escalate](#post-incidentsidescalate)
+  - [Timeline](#get--post-incidentsidtimeline)
+  - [Alerts](#alerts)
+  - [Reports](#reports)
+  - [Webhooks](#webhooks)
+- [Data Models](#data-models)
+- [Status Codes](#status-codes)
+- [Rate Limiting](#rate-limiting)
+- [Error Handling](#error-handling)
+- [Changelog](#changelog)
+
+---
+
+## Overview
+
+The Incident Management API provides a full lifecycle management system for infrastructure incidents — from alert ingestion through acknowledgement, escalation, resolution, and postmortem reporting.
+
+**Key capabilities:**
+
+- Create and manage incidents with status lifecycle: `open → acknowledged → resolved → closed`
+- Assign severity levels (P1–P4) with automatic on-call routing
+- Post timeline updates for collaborative incident response
+- Integrate with alerting tools via webhook ingestion
+- Query historical data for SLA reporting and MTTR analysis
+
+---
+
+## Base URL
+
+```
+https://api.incidenthub.io/v1
+```
+
+---
+
+## Authentication
+
+All requests require a Bearer token in the `Authorization` header.
+
+```http
+Authorization: Bearer <your_token>
+```
+
+### Obtain a token
+
+```http
+POST /auth/token
+Content-Type: application/json
+
+{
+  "client_id": "your-client-id",
+  "client_secret": "your-client-secret",
+  "grant_type": "client_credentials"
+}
+```
+
+**Response:**
+
+```json
+{
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...",
+  "token_type": "Bearer",
+  "expires_in": 86400
+}
+```
+
+> ⚠️ **Security:** Never expose your `client_secret` in client-side code or public repositories. Use environment variables or a secrets manager.
+
+---
+
+## Endpoints
+
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| `GET` | `/incidents` | List all incidents with filtering & pagination |
+| `POST` | `/incidents` | Create a new incident |
+| `GET` | `/incidents/{id}` | Retrieve a specific incident |
+| `PATCH` | `/incidents/{id}` | Update incident fields |
+| `DELETE` | `/incidents/{id}` | Delete an incident (admin only) |
+| `POST` | `/incidents/{id}/acknowledge` | Acknowledge an incident |
+| `POST` | `/incidents/{id}/resolve` | Mark an incident as resolved |
+| `POST` | `/incidents/{id}/escalate` | Escalate to a higher severity |
+| `GET` | `/incidents/{id}/timeline` | Get the full incident timeline |
+| `POST` | `/incidents/{id}/timeline` | Post a timeline event or comment |
+| `GET` | `/incidents/{id}/alerts` | List alerts linked to an incident |
+| `POST` | `/alerts` | Ingest an alert from a monitoring tool |
+| `GET` | `/teams` | List all on-call teams |
+| `GET` | `/teams/{id}/on-call` | Get current on-call member for a team |
+| `GET` | `/services` | List all monitored services |
+| `GET` | `/reports/summary` | Incident summary for a time range |
+| `GET` | `/reports/mttr` | Mean time to resolve by service or team |
+| `GET` | `/webhooks` | List registered webhook endpoints |
+| `POST` | `/webhooks` | Register a new webhook |
+| `DELETE` | `/webhooks/{id}` | Remove a webhook registration |
+
+---
+
+## Detailed Reference
+
+### GET /incidents
+
+Returns a paginated list of incidents. Supports filtering by status, severity, team, and date range.
+
+**Query Parameters:**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `status` | string | No | `open` \| `acknowledged` \| `resolved` \| `closed` |
+| `severity` | string | No | `P1` \| `P2` \| `P3` \| `P4` |
+| `team_id` | string | No | Filter by assigned team UUID |
+| `from` | ISO 8601 | No | Start of `created_at` range |
+| `to` | ISO 8601 | No | End of `created_at` range |
+| `page` | integer | No | Page number, 1-indexed. Default: `1` |
+| `per_page` | integer | No | Results per page, max 100. Default: `20` |
+
+**Example Request:**
+
+```http
+GET /incidents?status=open&severity=P1&per_page=10
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9...
+```
+
+**Example Response — 200 OK:**
+
+```json
+{
+  "data": [
+    {
+      "id": "inc_01HZ9X2T3WKBF8VQRNDP6YJA7",
+      "title": "Database primary node unresponsive",
+      "status": "open",
+      "severity": "P1",
+      "service": "payments-db",
+      "team_id": "team_db_infra",
+      "assignee": "jane.doe@company.com",
+      "created_at": "2025-03-17T04:22:11Z",
+      "updated_at": "2025-03-17T04:28:55Z"
+    }
+  ],
+  "meta": {
+    "total": 84,
+    "page": 1,
+    "per_page": 10,
+    "total_pages": 9
+  }
+}
+```
+
+---
+
+### POST /incidents
+
+Creates a new incident and triggers notifications to the assigned on-call team.
+
+**Request Body:**
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `title` | string | ✅ | Short, descriptive title (max 200 chars) |
+| `description` | string | No | Detailed description of the incident |
+| `severity` | string | ✅ | `P1` (critical) \| `P2` (high) \| `P3` (medium) \| `P4` (low) |
+| `service` | string | ✅ | Name or ID of the affected service |
+| `team_id` | string | No | UUID of responsible team. Auto-routed if omitted. |
+| `assignee` | string | No | Email of user to assign. Defaults to on-call member. |
+| `labels` | string[] | No | Array of label strings for categorisation |
+
+**Example Request:**
+
+```http
+POST /incidents
+Authorization: Bearer <token>
+Content-Type: application/json
+
+{
+  "title": "Payment service returning 503 errors",
+  "description": "Stripe webhook processor failing since 04:15 UTC. 37% error rate.",
+  "severity": "P1",
+  "service": "payment-service",
+  "team_id": "team_payments",
+  "labels": ["payments", "webhook", "outage"]
+}
+```
+
+**Example Response — 201 Created:**
+
+```json
+{
+  "id": "inc_01HZ9X2T3WKBF8VQRNDP6YJA7",
+  "title": "Payment service returning 503 errors",
+  "status": "open",
+  "severity": "P1",
+  "created_at": "2025-03-17T04:22:11Z",
+  "notifications_sent": ["pagerduty", "slack#incidents-p1"]
+}
+```
+
+---
+
+### GET /incidents/{id}
+
+Retrieves a single incident by ID, including all fields and current status.
+
+**Path Parameters:**
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `id` | string | ✅ | Incident UUID (`inc_...`) |
+
+---
+
+### PATCH /incidents/{id}
+
+Partially updates one or more fields on an existing incident. Only provided fields are changed.
+
+**Request Body (all fields optional):**
+
+| Field | Type | Description |
+|-------|------|-------------|
+| `title` | string | Updated incident title |
+| `status` | string | New status value |
+| `severity` | string | New severity level |
+| `assignee` | string | Reassign to a different user email |
+| `resolved_at` | ISO 8601 | Timestamp when incident was resolved |
+
+---
+
+### POST /incidents/{id}/acknowledge
+
+Marks the incident as acknowledged and records the acknowledging user and timestamp.
+
+```http
+POST /incidents/inc_01HZ9X2T3WKBF8VQRNDP6YJA7/acknowledge
+Authorization: Bearer <token>
+```
+
+---
+
+### POST /incidents/{id}/resolve
+
+Marks an incident as resolved. Optionally accepts a `resolved_at` timestamp and `resolution_summary`.
+
+```http
+POST /incidents/inc_01HZ9X2T3WKBF8VQRNDP6YJA7/resolve
+Content-Type: application/json
+
+{
+  "resolution_summary": "Rolled back to v2.3.1. Root cause: bad config deploy."
+}
+```
+
+---
+
+### POST /incidents/{id}/escalate
+
+Escalates the incident to a higher severity tier and re-notifies the appropriate on-call team.
+
+```http
+POST /incidents/inc_01HZ9X2T3WKBF8VQRNDP6YJA7/escalate
+Content-Type: application/json
+
+{
+  "severity": "P1",
+  "reason": "Customer impact confirmed — escalating from P2."
+}
+```
+
+---
+
+### GET / POST /incidents/{id}/timeline
+
+**GET** returns all timeline events in chronological order.
+
+**POST** appends a new event or comment.
+
+| Field | Type | Required | Description |
+|-------|------|----------|-------------|
+| `type` | string | ✅ | `comment` \| `status_change` \| `escalation` \| `alert` \| `action` |
+| `message` | string | ✅ | The timeline message body (max 2000 chars) |
+| `author` | string | No | User email. Defaults to authenticated user. |
+
+**Example:**
+
+```json
+{
+  "type": "action",
+  "message": "Rolled back payment-service to v2.3.1. Error rate dropping."
+}
+```
+
+---
+
+### Alerts
+
+#### POST /alerts
+
+Ingests an alert from an external monitoring tool (e.g. Datadog, Prometheus, Grafana).
+
+```json
+{
+  "source": "datadog",
+  "title": "High error rate on payment-service",
+  "severity": "P1",
+  "service": "payment-service",
+  "details": { "error_rate": "37%", "threshold": "5%" }
+}
+```
+
+---
+
+### Reports
+
+#### GET /reports/summary
+
+Returns an incident count summary grouped by status and severity for the given time range.
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `from` | ISO 8601 | Start of range |
+| `to` | ISO 8601 | End of range |
+| `team_id` | string | Filter by team (optional) |
+
+#### GET /reports/mttr
+
+Returns mean time to resolve (MTTR) broken down by service or team.
+
+---
+
+### Webhooks
+
+Register a URL to receive real-time POST notifications when incident state changes.
+
+**Supported events:** `incident.created` · `incident.acknowledged` · `incident.escalated` · `incident.resolved` · `incident.closed` · `alert.triggered`
+
+**Webhook payload example:**
+
+```json
+{
+  "event": "incident.resolved",
+  "timestamp": "2025-03-17T05:14:32Z",
+  "data": {
+    "id": "inc_01HZ9X2T3WKBF8VQRNDP6YJA7",
+    "title": "Payment service returning 503 errors",
+    "status": "resolved",
+    "resolved_at": "2025-03-17T05:14:29Z",
+    "duration_minutes": 52
+  }
+}
+```
+
+> 🔐 All webhook requests include an `X-Signature-256` header — an HMAC-SHA256 signature of the payload body. Verify it using your webhook secret to prevent spoofed requests.
+
+---
+
+## Data Models
+
+### Incident Object
+
+```json
+{
+  "id": "inc_01HZ9X2T3WKBF8VQRNDP6YJA7",
+  "title": "string",
+  "description": "string | null",
+  "status": "open | acknowledged | resolved | closed",
+  "severity": "P1 | P2 | P3 | P4",
+  "service": "string",
+  "team_id": "string",
+  "assignee": "string",
+  "labels": ["string"],
+  "created_at": "ISO 8601",
+  "updated_at": "ISO 8601",
+  "acknowledged_at": "ISO 8601 | null",
+  "resolved_at": "ISO 8601 | null",
+  "closed_at": "ISO 8601 | null"
+}
+```
+
+### Severity Levels
+
+| Level | Name | Description |
+|-------|------|-------------|
+| `P1` | Critical | Complete outage or major customer impact. Immediate response required. |
+| `P2` | High | Significant degradation. Urgent response required. |
+| `P3` | Medium | Partial impact or workaround available. |
+| `P4` | Low | Minor issue, cosmetic or low-impact. |
+
+---
+
+## Status Codes
+
+| Code | Meaning | When it occurs |
+|------|---------|----------------|
+| `200` | OK | GET or PATCH succeeded |
+| `201` | Created | POST successfully created a resource |
+| `204` | No Content | DELETE succeeded; no body returned |
+| `400` | Bad Request | Validation error or missing required field |
+| `401` | Unauthorized | Missing or expired Bearer token |
+| `403` | Forbidden | Token lacks permission for this action |
+| `404` | Not Found | Resource ID does not exist |
+| `409` | Conflict | State transition not allowed (e.g. re-opening a closed incident) |
+| `429` | Too Many Requests | Rate limit exceeded |
+| `500` | Internal Server Error | Unexpected server error; retry with backoff |
+
+---
+
+## Rate Limiting
+
+| Tier | Limit | Window |
+|------|-------|--------|
+| Standard | 1,000 requests | Per minute |
+| Enterprise | 10,000 requests | Per minute |
+
+Rate limit headers are included on every response:
+
+```http
+X-RateLimit-Limit: 1000
+X-RateLimit-Remaining: 982
+X-RateLimit-Reset: 1710647040
+```
+
+---
+
+## Error Handling
+
+All errors return a consistent JSON shape:
+
+```json
+{
+  "error": {
+    "code": "VALIDATION_ERROR",
+    "message": "severity must be one of: P1, P2, P3, P4",
+    "field": "severity",
+    "request_id": "req_9KzT8Pqm2vWx"
+  }
+}
+```
+
+Use `request_id` when contacting support for a specific failed request.
+
+---
+
+## Changelog
+
+| Version | Date | Changes |
+|---------|------|---------|
+| `v1.0.0` | 2025-03-17 | Initial public release. Full CRUD for incidents, timeline events, on-call routing, webhook registration, and reporting endpoints. |
+
+---
+
+## License
+
+[Apache 2.0](LICENSE) · Built by [yourusername](https://github.com/yourusername)
