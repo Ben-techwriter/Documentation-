@@ -20,3 +20,7 @@ ITSM, ITAM, DDLC, SDLC, Agile, Confluence, Doc360, Jira, API Documentation, Mark
 
 ## Contact
 I can be contacted on [Linkedin!](https://www.linkedin.com/in/benila-susan-jacob-phd-518960253/) and my portfolio is available for preview on [Github!](https://github.com/Ben-techwriter).  
+
+
+---
+>"genius is 99% perspiration and 1% inspiration"
