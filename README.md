@@ -2,7 +2,6 @@
 
 > A RESTful API for creating, tracking, escalating, and resolving incidents across your infrastructure. Built for DevOps teams, SRE engineers, and platform integrations.
 
-![Version](https://img.shields.io/badge/version-1.0.0-blue) ![License](https://img.shields.io/badge/license-Apache%202.0-green) ![Status](https://img.shields.io/badge/status-active-brightgreen)
 
 ---
 
