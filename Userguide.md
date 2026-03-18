@@ -6,8 +6,6 @@ FitTrack solves the problem of scattered fitness data by bringing steps, hydrati
 <img width="219" height="340" alt="image" src="https://github.com/user-attachments/assets/ea5ef107-7d88-441f-a5db-7d7248fe1016" />
 
 
-![Screenshot or Diagram of the project in action](link-to-your-image.png)
-
 ## Table of Contents
 *   [Description](#description)
 *   [Installation](#installation)
