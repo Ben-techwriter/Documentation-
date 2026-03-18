@@ -1,1 +1,12 @@
+## Authorization
 
+To access the Event Manager API, a valid Bearer token is required. Treat this token as a secret and store it securely, using a key management system if possible. Contact your account manager if you need help generating your token.
+
+**Authorization Header Example**:
+```http
+Authorization: Bearer <YOUR_TOKEN_HERE>
+```
+
+Replace `<YOUR_TOKEN_HERE>` with your actual token. Include this header in each request to authenticate with the API.
+
+---
