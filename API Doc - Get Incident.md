@@ -9,8 +9,50 @@ To access the Incident Management API, a valid Bearer token is required. Treat t
 **Authorization Header Example**:
 ```http
 Authorization: Bearer <YOUR_TOKEN_HERE>
+Content-Type: application/json
 ```
 
 Replace `<YOUR_TOKEN_HERE>` with your actual token. Include this header in each request to authenticate with the API.
 
 ---
+
+## Authentication Failure 
+If authentication fails, the API returns the following:
+
+```http:
+{
+"error": "unauthorized",
+"message": "invalid or missing token."
+}
+```
+
+## Create Incident
+
+Overview: The create incident API is used to create a new incident. We can use the POST method to create a new incident by specifying the required parameters. The response will ideally be a 201 with newly created incident details. 
+
+**Request**
+```
+POST/incidents
+{
+"title": "Email server outage",
+"description": "Users cannot send or receive emails",
+"priority": "high",
+}
+```
+**
+
+**Response**
+The Response 201 - created is as follows
+
+```
+{
+"incident id": "INC-101"
+"status": "open"
+"created at": 2026-03-18T09:15:00Z"
+}
+```
+
+
+
+```
+
