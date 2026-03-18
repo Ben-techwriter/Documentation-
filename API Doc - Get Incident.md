@@ -1,5 +1,5 @@
 ##Incident Management API Documentation
-
+The Incident Management API by ABCExample allows developers to create, manage, and track incidents. This API provides endpoints for incident creation, incident updation, and incident resolution or closure, making it ideal for applications that require an incident management feature.
 
 
 ## Authorization
