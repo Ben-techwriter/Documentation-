@@ -10,9 +10,6 @@ FitTrack solves the problem of scattered fitness data by bringing steps, hydrati
 *   [Description](#description)
 *   [Installation](#installation)
 *   [Features](#features)
-*   [Usage Examples](#usage-examples)
-*   [Contributing](#contributing)
-*   [License](#license)
 *   [Contact](#contact)
 
 ## Description
