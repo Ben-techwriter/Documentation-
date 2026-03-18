@@ -1,3 +1,7 @@
+##Incident Management API Documentation
+
+
+
 ## Authorization
 
 To access the Incident Management API, a valid Bearer token is required. Treat this token as a secret and store it securely, using a key management system if possible. Contact your account manager if you need help generating your token.
