@@ -51,8 +51,37 @@ The Response 201 - created is as follows
 "created at": 2026-03-18T09:15:00Z"
 }
 ```
+## Get Incident Details
 
-
+GET/incidents/{incidentId}
 
 ```
+{
+GET/incidents/INC-101"
+}
+```
+
+**Response**
+
+```
+{
+"Incident id": "INC-101", 
+"Title": "Email server outage",
+"Description": "Users cannot send or receive emails"
+"priority": "high",
+"status": "open"
+"assigned to": "John Doe", 
+"created at": "  "
+"updated at": "  "
+
+}
+```
+
+
+
+
+
+
+
+
 
