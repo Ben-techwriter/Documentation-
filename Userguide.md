@@ -1,4 +1,4 @@
-# Project Title
+# Track your Fitness
 
 A simple, intuitive mobile app that helps users monitor daily fitness activities, set personalized health goals, and visualize progress through interactive charts.
 FitTrack solves the problem of scattered fitness data by bringing steps, hydration, workouts, and sleep tracking into one streamlined interface.
