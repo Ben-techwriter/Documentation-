@@ -60,12 +60,16 @@ The Response 201 - created is as follows
 }
 ```
 ## Get Incident Details
+**Description**: Retrieves detailed information about a specific incident.
+Endpoint: GET /incident/{event_id}
+Path Parameter:
+incident_id (integer, required) - The ID of the incident to retrieve.
 
-GET/incidents/{incidentId}
+**Request**
 
 ```
 {
-GET/incidents/INC-101"
+GET/incidents/INC-101
 }
 ```
 
@@ -85,11 +89,84 @@ GET/incidents/INC-101"
 }
 ```
 
+## Create Incident
+- Description: Creates a new incident.
+- Endpoint: POST /incident/{id}. 
+- Request Body:
 
 
 
+**Request**
+
+```
+{
 
 
+}
+````
+
+
+**Response**
+
+```
+{
+
+
+}
+````
+
+
+## Delete Incident
+- Description: Deletes an incident.
+- Endpoint: DELETE /incident. 
+- Request Body:
+
+
+
+**Request**
+
+```
+{
+
+
+}
+````
+
+
+**Response**
+
+```
+{
+
+
+}
+````
+
+## Resolve Incident
+- Description: Resolves an incident.
+- Endpoint: POST /incident/{Id}resolve. 
+- Request Body:
+
+
+
+**Request**
+
+```
+{
+
+
+}
+````
+
+
+**Response**
+
+```
+{
+
+
+}
+````
 
 
 
