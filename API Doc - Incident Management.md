@@ -89,9 +89,9 @@ GET/incidents/INC-101
 }
 ```
 
-## Create Incident
-- Description: Creates a new incident.
-- Endpoint: POST /incident/{id}. 
+## Escalate Incident
+- Description: Escalates an incident.
+- Endpoint: POST /incident/{id}/escalate 
 - Request Body:
 
 
@@ -100,8 +100,10 @@ GET/incidents/INC-101
 
 ```
 {
-
-
+POST /incidents/inc-101/escalate
+Content-Type: application/json
+"severity": "P1";
+"reason": "customer impact confirmed; escalating from p2"
 }
 ````
 
@@ -168,5 +170,29 @@ GET/incidents/INC-101
 }
 ````
 
+---
 
+### Severity Levels
+ 
+| Level | Name | Description |
+|-------|------|-------------|
+| `P1` | Critical | Complete outage or major customer impact. Immediate response required. |
+| `P2` | High | Significant degradation. Urgent response required. |
+| `P3` | Medium | Partial impact or workaround available. |
+| `P4` | Low | Minor issue, cosmetic or low-impact. |
+ 
+## Status Codes
+ 
+| Code | Meaning | When it occurs |
+|------|---------|----------------|
+| `200` | OK | GET or PATCH succeeded |
+| `201` | Created | POST successfully created a resource |
+| `204` | No Content | DELETE succeeded; no body returned |
+| `400` | Bad Request | Validation error or missing required field |
+| `401` | Unauthorized | Missing or expired Bearer token |
+| `403` | Forbidden | Token lacks permission for this action |
+| `404` | Not Found | Resource ID does not exist |
+| `409` | Conflict | State transition not allowed (e.g. re-opening a closed incident) |
+| `429` | Too Many Requests | Rate limit exceeded |
+| `500` | Internal Server Error | Unexpected server error; retry with backoff |
 
