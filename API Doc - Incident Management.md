@@ -28,18 +28,26 @@ If authentication fails, the API returns the following:
 
 ## Create Incident
 
-Overview: The create incident API is used to create a new incident. We can use the POST method to create a new incident by specifying the required parameters. The response will ideally be a 201 with newly created incident details. 
+**Description**: creates a new incident.
+**Endpoint**: `POST/incident`
+**Request Body**
+  * title (string, required) - Name of the incident.
+  * desciption (string, required) - Description of the incident.
+  * priority (string, required) - priority of the incident.
+
+
 
 **Request**
 ```
 POST/incidents
+Authorization: Bearer <YOUR_TOKEN_HERE>
+Content-Type: application/json
 {
 "title": "Email server outage",
 "description": "Users cannot send or receive emails",
 "priority": "high",
 }
 ```
-**
 
 **Response**
 The Response 201 - created is as follows
