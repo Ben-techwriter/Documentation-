@@ -3,8 +3,7 @@
 A simple, intuitive mobile app that helps users monitor daily fitness activities, set personalized health goals, and visualize progress through interactive charts.
 FitTrack solves the problem of scattered fitness data by bringing steps, hydration, workouts, and sleep tracking into one streamlined interface.
 
-<img width="219" height="340" alt="image" src="https://github.com/user-attachments/assets/ea5ef107-7d88-441f-a5db-7d7248fe1016" />
-
+<img width="200" height="349" alt="image" src="https://github.com/user-attachments/assets/5fda14b5-be9f-4951-be07-30ef4b729af8" />
 
 ## Table of Contents
 *   [Description](#description)
