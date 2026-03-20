@@ -19,25 +19,26 @@ StyleCSS--->SimpleWebpage
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>My Simple Web Page</title>
-    styles.css
+    <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
 
     <header class="hero">
         <h1>Welcome to My Web Page</h1>
-        <p>This is a simple example page built using HTML & CSS.</p>
+        <p>I have created this page to showcase my expertise in using HTML and CSS.</p>
     </header>
 
     <section class="content">
-        <h2>About This Tutorial</h2>
+        <h2>About ME</h2>
         <p>
-            In this tutorial, you learned how to create a clean and modern webpage.
-            You can continue by adding images, links, buttons, and more.
+             This page provides a brief view of myself, my skill sets and overall exprtise. 
+	<buttton> Click to know more</button>
         </p>
     </section>
 
 </body>
+
 </html>
 
 
@@ -55,7 +56,7 @@ body {
 }
 
 .hero {
-    background: #4a90e2;
+    background: #c6cee2;
     color: white;
     text-align: center;
     padding: 80px 20px;
@@ -76,6 +77,8 @@ body {
 
 
 ### Step 3: The final Outcome 
+
+<img width="1828" height="706" alt="image" src="https://github.com/user-attachments/assets/68d9930e-b610-460b-b542-d582b0957975" />
 
 
 
