@@ -9,6 +9,12 @@ IndexHTML-->StyleCSS;
 StyleCSS--->SimpleWebpage
 ````
 
+## Steps
+1. Create an html file with the code given below and save it as index.html.
+2. Create a css file with the code given below and save it as styles.css.
+3. Ensure to reference the css file in the html file.
+4. Click the html file and it opens as website with the text and styling specified.
+5. You have created a static website. 
 
 ### Step1: Create the HTML file 
 
