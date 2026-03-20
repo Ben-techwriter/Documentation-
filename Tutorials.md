@@ -36,11 +36,15 @@ StyleCSS--->SimpleWebpage
     </header>
 
     <section class="content">
-        <h2>About ME</h2>
+        <h2>About Me</h2>
         <p>
-             This page provides a brief view of myself, my skill sets and overall exprtise. 
-	<buttton> Click to know more</button>
+         This page provides a brief view of myself, my skill sets and overall exprtise. 
         </p>
+	<p>
+	You can find more information about me here
+	<a href="https://github.com/Ben-techwriter">My Github Profile</a>
+	</p>
+
     </section>
 
 </body>
@@ -81,11 +85,9 @@ body {
 ```
 
 
-
 ### Step 3: The final Outcome 
 
-<img width="1828" height="706" alt="image" src="https://github.com/user-attachments/assets/68d9930e-b610-460b-b542-d582b0957975" />
-
+<img width="1836" height="805" alt="image" src="https://github.com/user-attachments/assets/86d05d5d-f439-428b-a7a5-e328e6393fc3" />
 
 
 ### Step 4: Explain Key Concepts 
