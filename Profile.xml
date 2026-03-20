@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Portfolio>
+    <Profile>
+        <Name>Your Name</Name>
+        <Role>Technical Writer</Role>
+        <Location>City, Country</Location>
+    </Profile>
+
+    <Skills>
+        <Skill category="Writing">API Documentation</Skill>
+        <Skill category="Tools">Markdown</Skill>
+        <Skill category="Technical">HTML</Skill>
+        <Skill category="Technical">CSS</Skill>
+    </Skills>
+
+    <Projects>
+        <Project>
+            <Title>Incident Management API Docs</Title>
+            <Description>Complete API documentation for incidents, escalation, and lifecycle management.</Description>
+            <Link>https://github.com/yourusername/incident-management-api</Link>
+        </Project>
+        <Project>
+            <Title>Mobile App User Guide</Title>
+            <Description>User onboarding and feature documentation for a fictional mobile app.</Description>
+            <Link>https://github.com/yourusername/mobile-app-guide</Link>
+        </Project>
+    </Projects>
+</Portfolio>
