@@ -68,9 +68,7 @@ incident_id (integer, required) - The ID of the incident to retrieve.
 **Request**
 
 ```
-{
 GET/incidents/INC-101
-}
 ```
 
 **Response**
@@ -100,9 +98,9 @@ GET/incidents/INC-101
 
 ```
 {
-POST /incidents/inc-101/escalate
+POST /incidents/INC-101/escalate
 Content-Type: application/json
-"severity": "P1";
+"escalationlevel": "P1";
 "reason": "customer impact confirmed; escalating from p2"
 }
 ````
@@ -112,9 +110,15 @@ Content-Type: application/json
 
 ```
 {
-
-
+  "id": "INC-101",
+  "status": "Escalated",
+  "escalationLevel": "P1",
+  "previousLevel": "P2 ",
+  "reason": "Issue persists beyond initial troubleshooting",
+  "escalatedBy": "tech001",
+  "escalatedAt": "2026-03-18T10:45:22Z"
 }
+
 ````
 
 
@@ -128,10 +132,8 @@ Content-Type: application/json
 **Request**
 
 ```
-{
+DELETE /incidents/INC-101
 
-
-}
 ````
 
 
@@ -139,7 +141,11 @@ Content-Type: application/json
 
 ```
 {
-
+  "id": "INC-101",
+  "status": "Archived",
+  "message": "Incident deleted successfully",
+  "deletedBy": "admin001",
+  "deletedAt": "2026-03-18T14:22:10Z"
 
 }
 ````
@@ -154,9 +160,10 @@ Content-Type: application/json
 **Request**
 
 ```
+POST /incidents/{INC-101}/resolve
 {
-
-
+"resolutionNotes": "Rebooted mail server and restored services.",
+  "resolvedBy": "tech001"
 }
 ````
 
@@ -166,6 +173,12 @@ Content-Type: application/json
 ```
 {
 
+"id": "INC-101",
+  "status": "Resolved",
+  "resolutionNotes": "Rebooted mail server and restored services.",
+  "resolvedBy": "tech001",
+  "resolvedAt": "2026-03-18T15:12:45Z",
+  "previousStatus": "In Progress"
 
 }
 ````
