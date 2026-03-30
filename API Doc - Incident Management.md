@@ -36,19 +36,15 @@ If authentication fails, the API returns the following:
 | PATCH  | Adds data to an existing resource              |
 | DELETE | Deletes or deactivates a resource              |
 
+<details>
 
-## Create Incident
+<summary>Create Incident</summary>
 
 **Description**: creates a new incident.
 **Endpoint**: `POST/incident`
 **Request Body**
-  * title (string, required) - Name of the incident.
-  * desciption (string, required) - Description of the incident.
-  * priority (string, required) - priority of the incident.
 
-
-
-**Request**
+ **Request**
 ```
 POST/incidents
 Authorization: Bearer <YOUR_TOKEN_HERE>
@@ -60,6 +56,13 @@ Content-Type: application/json
 }
 ```
 
+| Parameter | Type        | Description                 |
+|-----------|-------------|--------------------------   |
+|Title      | string      | The name of the incident    |
+|Description| string        | Description of the incident |
+ |Priority  | string        | Priority of the incident    |
+
+
 **Response**
 The Response 201 - created is as follows
 
@@ -70,7 +73,16 @@ The Response 201 - created is as follows
 "created at": 2026-03-18T09:15:00Z"
 }
 ```
-## Get Incident Details
+
+| Parameter | Type | Description                 |
+|-----------|-------------|--------------------------   |
+|Incident Id     | string         | The Id of the incident    |
+|Status          | yes            | Status of the incident |
+|created at      | string         | Created date of the incident    |
+
+</details>
+<details><summary>Get Incident Details</summary>
+
 **Description**: Retrieves detailed information about a specific incident.
 Endpoint: GET /incident/{event_id}
 Path Parameter:
@@ -97,8 +109,11 @@ GET/incidents/INC-101
 
 }
 ```
+</details>
 
-## Escalate Incident
+<details>
+<summary>Escalate Incident</summary>
+
 - Description: Escalates an incident.
 - Endpoint: POST /incident/{id}/escalate 
 - Request Body:
@@ -131,9 +146,9 @@ Content-Type: application/json
 }
 
 ````
-
-
-## Delete Incident
+</details>
+<details>
+<summary>Delete Incident</summary>
 - Description: Deletes an incident.
 - Endpoint: DELETE /incident. 
 - Request Body:
@@ -160,8 +175,10 @@ DELETE /incidents/INC-101
 
 }
 ````
+</details>
 
-## Resolve Incident
+<details>
+<summary>Resolve Incident</summary>
 - Description: Resolves an incident.
 - Endpoint: POST /incident/{Id}resolve. 
 - Request Body:
@@ -195,8 +212,10 @@ POST /incidents/{INC-101}/resolve
 ````
 
 ---
+</details>
 
-### Severity Levels
+<details>
+<summary>Severity Levels</summary>
  
 | Level | Name | Description |
 |-------|------|-------------|
@@ -204,8 +223,12 @@ POST /incidents/{INC-101}/resolve
 | `P2` | High | Significant degradation. Urgent response required. |
 | `P3` | Medium | Partial impact or workaround available. |
 | `P4` | Low | Minor issue, cosmetic or low-impact. |
+
+</details>
+
+<details>
  
-## Status Codes
+<summary>Status Codes</summary>
  
 | Code | Meaning | When it occurs |
 |------|---------|----------------|
@@ -220,3 +243,4 @@ POST /incidents/{INC-101}/resolve
 | `429` | Too Many Requests | Rate limit exceeded |
 | `500` | Internal Server Error | Unexpected server error; retry with backoff |
 
+</details>
