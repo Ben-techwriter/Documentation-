@@ -55,6 +55,7 @@ Content-Type: application/json
 "priority": "high",
 }
 ```
+**Path Parameter**
 
 | Parameter | Type        | Description                 |
 |-----------|-------------|--------------------------   |
@@ -85,7 +86,8 @@ The Response 201 - created is as follows
 
 **Description**: Retrieves detailed information about a specific incident.
 Endpoint: GET /incident/{event_id}
-Path Parameter:
+
+**Path Parameter**
 incident_id (integer, required) - The ID of the incident to retrieve.
 
 **Request**
@@ -109,6 +111,18 @@ GET/incidents/INC-101
 
 }
 ```
+
+|Parameter   | Type   | Description                    |
+|------------|--------|---------------                 |
+|Incident Id |String  |The Id of the incident          |
+|Title       |string  |The title of the incident       |
+|Description |string  |The description of the incident |
+|priority    |string  |The priority of the incident    |
+|status      |string  |The status of the incident      |
+|assigned to |string  |The name of the person assigned |
+|created at  |string(date/time)| The creation date of the incident |
+|updated at  |string (date/time)| The updation time of the incident |
+
 </details>
 
 <details>
