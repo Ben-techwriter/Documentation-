@@ -26,6 +26,17 @@ If authentication fails, the API returns the following:
 }
 ```
 
+## Methods
+
+| Method | Description                                    |
+|--------|------------------------------------------------|
+| GET    | Requests one or more resoruces from the server |
+| POST   | Creates one or more resources                  |
+| PUT    | Updates a resources                            |
+| PATCH  | Adds data to an existing resource              |
+| DELETE | Deletes or deactivates a resource              |
+
+
 ## Create Incident
 
 **Description**: creates a new incident.
