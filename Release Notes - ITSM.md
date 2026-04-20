@@ -4,7 +4,7 @@
 
 ## New Features
 
---**Bulk Incident Import**
+-**Bulk Incident Import**
 We've introduced a new bulk import capability that allows adminstrators to create multiple incident records at once using csv file. This feature helps reduce manual effort when onboarding large volume of incidents from external systems.
 
 -**Change Approval Notification Dashboard**
