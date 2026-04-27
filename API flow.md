@@ -17,5 +17,3 @@ K-->L[Database]
 L-->K
 K-->M[Format Response]
 M-->|API Response|A
-
-
