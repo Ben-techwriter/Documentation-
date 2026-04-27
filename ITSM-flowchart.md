@@ -28,8 +28,14 @@ E3-->E4[Request Closure]
 F-->F1[Log Change Request]
 F1-->F2[Impact & Risk Assessment]
 F2-->F3[Change Approval]
-F3-->F3{Approved?}
+F3-->F4{Approved?}
 F4-->|Yes| F5[Implement Change]
 F4-->|No| F6[Reject/Rework Change]
 F5-->F7[Post Implementation Review]
-F7-->F8[Change Closure] 
+F7-->F8[Change Closure]
+
+%%Problem Management
+G-->G1[Root Cause Analysis]
+G1-->G2[Identifying Known Error]
+G2-->G3[Create Workaround]
+G3-->G4[Permanent Fix via Change]
