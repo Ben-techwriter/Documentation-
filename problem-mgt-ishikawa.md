@@ -1,6 +1,5 @@
 ```mermaid
-
-ishikawa-beta
+flowchart LR
 P[Recurring Service Incidents]
 C1[People]-->P
 C2[Process]-->P
@@ -27,7 +26,7 @@ C3c[System Design Flaws]-->C3
 %%Tools
 C4a[Inadequate Monitoring Tools]-->C4
 C4b[Disconnected ITSM Tools]-->C4
-C4c[No known error database (KEDB)]-->C4
+C4c[No known error database]-->C4
 
 %%Environment
 C5a[High workload during peak hours]-->C5
